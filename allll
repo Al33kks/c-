@@ -1,0 +1,171 @@
+/*
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
+class Base {
+protected:
+    static const int rows = 4;
+    static const int columns = 5;
+    int b[rows][columns];
+public:
+    Base() {
+        srand(time(0));
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                b[i][j] = 10 + rand() % 21;
+            }
+        }
+    }
+    void print() {
+        cout << "Matrix:\n";
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                cout << b[i][j] << "\t";
+            }
+            cout << endl;
+        }
+    }
+    virtual void function() {
+        cout << "Column sums:\n";
+        for (int j = 0; j < columns; j++) {
+            int sum = 0;
+            for (int i = 0; i < rows; i++) {
+                sum += b[i][j];
+            }
+            cout << "Column " << j << ": " << sum << endl;
+        }
+    }
+};
+class Derived : public Base {
+public:
+    void function() override {
+        cout << "Row sums:\n";
+        for (int i = 0; i < rows; i++) {
+            int sum = 0;
+            for (int j = 0; j < columns; j++) {
+                sum += b[i][j];
+            }
+            cout << "Row " << i << ": " << sum << endl;
+        }
+    }
+};
+int main() {
+    Derived obj;
+    obj.print();
+    cout << endl;
+    obj.Base::function();
+    cout << endl;
+    obj.function();
+
+    return 0;
+} */
+/*
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
+class Base {
+protected:
+    static const int size = 15;
+    int a[size];
+public:
+    Base() {
+        srand(time(0));
+        for (int i = 0; i < size; i++) {
+            a[i] = 1 + rand() % 20;
+        }
+    }
+    void print() {
+        cout << "Array elements:\n";
+        for (int i = 0; i < size; i++) {
+            cout << a[i] << " ";
+        }
+        cout << endl;
+    }
+    virtual void function() {
+        long long product = 1;
+        bool found = false;
+        for (int i = 0; i < size; i++) {
+            if (a[i] % 2 == 0) {
+                product *= a[i];
+                found = true;
+            }
+        }
+        if (found)
+            cout << "Product of even elements: " << product << endl;
+        else
+            cout << "No even elements found." << endl;
+    }
+};
+class Derived : public Base {
+public:
+    void function() override {
+        Base::function();
+        long long product = 1;
+        bool found = false;
+        for (int i = 0; i < size; i++) {
+            if (a[i] % 2 != 0) {
+                product *= a[i];
+                found = true;
+            }
+        }
+        if (found)
+            cout << "Product of odd elements: " << product << endl;
+        else
+            cout << "No odd elements found." << endl;
+    }
+};
+int main() {
+    Base* ptr;
+    Derived obj;
+    ptr = &obj;
+    obj.print();
+    cout << endl;
+    ptr->function();
+    return 0;
+} */
+#include <iostream>
+using namespace std;
+class Shape {
+public:
+    virtual double getPerimeter() = 0;
+};
+class Rectangle : public Shape {
+private:
+    double length;
+    double width;
+
+public:
+    Rectangle(double l, double w) {
+        length = l;
+        width = w;
+    }
+    double getPerimeter() override {
+        return 2 * (length + width);
+    }
+};
+
+
+class Trapezoid : public Shape {
+private:
+    double a, b, c, d;
+
+public:
+    Trapezoid(double side1, double side2, double side3, double side4) {
+        a = side1;
+        b = side2;
+        c = side3;
+        d = side4;
+    }
+    double getPerimeter() override {
+        return a + b + c + d;
+    }
+};
+int main() {
+    Rectangle rect(5, 3);
+    Trapezoid trap(4, 6, 5, 7);
+    cout << "martkutxedis perimetri: " << rect.getPerimeter() << endl;
+    cout << "trapeciis perimetri: " << trap.getPerimeter() << endl;
+    return 0;
+}
