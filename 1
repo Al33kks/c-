@@ -1,0 +1,61 @@
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
+using namespace std;
+class Base {
+protected:
+    static const int rows = 4;
+    static const int columns = 5;
+    int b[rows][columns];
+public:
+    Base() {
+        srand(time(0));
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                b[i][j] = 10 + rand() % 21;
+            }
+        }
+    }
+    void print() {
+        cout << "Matrix:\n";
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                cout << b[i][j] << "\t";
+            }
+            cout << endl;
+        }
+    }
+    virtual void function() {
+        cout << "Column sums:\n";
+        for (int j = 0; j < columns; j++) {
+            int sum = 0;
+            for (int i = 0; i < rows; i++) {
+                sum += b[i][j];
+            }
+            cout << "Column " << j << ": " << sum << endl;
+        }
+    }
+};
+class Derived : public Base {
+public:
+    void function() override {
+        cout << "Row sums:\n";
+        for (int i = 0; i < rows; i++) {
+            int sum = 0;
+            for (int j = 0; j < columns; j++) {
+                sum += b[i][j];
+            }
+            cout << "Row " << i << ": " << sum << endl;
+        }
+    }
+};
+int main() {
+    Derived obj;
+    obj.print();
+    cout << endl;
+    obj.Base::function();
+    cout << endl;
+    obj.function();
+
+    return 0;
+}
